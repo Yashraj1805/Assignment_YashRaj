@@ -1,0 +1,205 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    --bg-start: #eff6ff;
+    --bg-end: #f8fafc;
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --text-muted: #64748b;
+    --surface: rgba(255, 255, 255, 0.84);
+    --surface-strong: rgba(255, 255, 255, 0.95);
+    --surface-soft: rgba(255, 255, 255, 0.68);
+    --surface-hover: rgba(255, 255, 255, 0.9);
+    --panel-gradient: linear-gradient(180deg, rgba(255,255,255,0.94), rgba(241,245,249,0.92));
+    --stroke: rgba(148, 163, 184, 0.24);
+    --table-row: rgba(255, 255, 255, 0.65);
+    --shadow: 0 20px 45px rgba(15, 23, 42, 0.1);
+    --hero-shell: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(236,254,255,0.7));
+    background:
+      radial-gradient(circle at top left, rgba(20, 184, 166, 0.18), transparent 26%),
+      radial-gradient(circle at top right, rgba(59, 130, 246, 0.18), transparent 22%),
+      linear-gradient(180deg, var(--bg-start) 0%, var(--bg-end) 100%);
+    color: var(--text-primary);
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .dark {
+    color-scheme: dark;
+    --bg-start: #09101d;
+    --bg-end: #040912;
+    --text-primary: #f8fafc;
+    --text-secondary: #cbd5e1;
+    --text-muted: #94a3b8;
+    --surface: rgba(15, 23, 42, 0.72);
+    --surface-strong: rgba(15, 23, 42, 0.94);
+    --surface-soft: rgba(255, 255, 255, 0.04);
+    --surface-hover: rgba(255, 255, 255, 0.08);
+    --panel-gradient: linear-gradient(180deg, rgba(15, 23, 42, 0.94), rgba(6, 11, 22, 0.94));
+    --stroke: rgba(255, 255, 255, 0.08);
+    --table-row: rgba(255, 255, 255, 0.02);
+    --shadow: 0 20px 48px rgba(3, 9, 20, 0.32);
+    --hero-shell: linear-gradient(135deg, rgba(7,17,31,0.86), rgba(12,23,41,0.68));
+  }
+
+  * {
+    @apply border-line;
+  }
+
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply m-0 min-h-screen transition-colors duration-500;
+    background:
+      radial-gradient(circle at top left, rgba(20, 184, 166, 0.14), transparent 24%),
+      linear-gradient(180deg, var(--bg-start) 0%, var(--bg-end) 100%);
+    color: var(--text-primary);
+  }
+
+  #root {
+    @apply min-h-screen;
+  }
+
+  button,
+  input,
+  select {
+    font: inherit;
+  }
+
+  ::selection {
+    @apply bg-accent/30 text-white;
+  }
+}
+
+@layer components {
+  .glass-panel {
+    @apply rounded-[24px] border backdrop-blur-xl transition-all duration-300;
+    background: var(--surface);
+    border-color: var(--stroke);
+    box-shadow: var(--shadow);
+  }
+
+  .panel-grid {
+    @apply glass-panel overflow-hidden;
+    background: var(--panel-gradient);
+  }
+
+  .hero-shell {
+    @apply glass-panel relative overflow-hidden;
+    background: var(--hero-shell);
+  }
+
+  .input-shell {
+    @apply rounded-2xl border px-4 py-3 outline-none transition duration-200;
+    background: var(--surface-soft);
+    border-color: var(--stroke);
+    color: var(--text-primary);
+  }
+
+  .input-shell::placeholder {
+    color: var(--text-muted);
+  }
+
+  .input-shell:focus,
+  .filter-shell:focus-within {
+    border-color: rgba(94, 234, 212, 0.45);
+    box-shadow: 0 0 0 4px rgba(94, 234, 212, 0.14);
+  }
+
+  .filter-shell {
+    @apply rounded-2xl border px-4 py-3 transition duration-200;
+    background: var(--surface-soft);
+    border-color: var(--stroke);
+  }
+
+  .pill-shell {
+    @apply rounded-full border;
+    background: var(--surface-soft);
+    border-color: var(--stroke);
+  }
+
+  .card-hover {
+    @apply transition duration-300 hover:-translate-y-1 hover:shadow-glow;
+  }
+
+  .shine-card {
+    @apply relative overflow-hidden;
+  }
+
+  .shine-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    width: 42%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
+    opacity: 0;
+    transform: translateX(-140%) skewX(-18deg);
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+
+  .shine-card:hover::after {
+    opacity: 1;
+    animation: shimmer 1.9s ease;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .text-app-primary {
+    color: var(--text-primary);
+  }
+
+  .text-app-secondary {
+    color: var(--text-secondary);
+  }
+
+  .text-app-muted {
+    color: var(--text-muted);
+  }
+
+  .bg-app-soft {
+    background: var(--surface-soft);
+  }
+
+  .bg-app-strong {
+    background: var(--surface-strong);
+  }
+
+  .border-app {
+    border-color: var(--stroke);
+  }
+
+  .bg-table-row {
+    background: var(--table-row);
+  }
+
+  .scrollbar-subtle {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(148, 163, 184, 0.35) transparent;
+  }
+
+  .scrollbar-subtle::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  .scrollbar-subtle::-webkit-scrollbar-thumb {
+    background: rgba(148, 163, 184, 0.35);
+    border-radius: 9999px;
+  }
+}
